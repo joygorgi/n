@@ -1,82 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="images/n1.png" type="image/png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <!-- Mobile browser + Safari top bar color -->
-  <meta name="theme-color" content="#efeae7" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19TX9J8WR3"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-19TX9J8WR3');
-  </script>
-
   <title>Nadia Alexandria</title>
+  <link rel="icon" href="images/n1.png" type="image/png">
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Google tag (gtag.js) -->
+  <style>
+    /* === Merged style.css content === */
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background-color: #efeae7; /* fallback color while image loads */
+    }
 
-  <!-- Preload background image --
-  <link rel="preload" as="image" href="images/years.avif">
-  <link rel="preload" as="image" href="images/years.webp">
-  <link rel="preload" as="image" href="images/years.png">
+    /* Blur-up placeholder before main image loads */
+    body {
+      background-image: url('background1.svg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      filter: blur(5px);
+      transition: filter 0.5s ease-in-out;
+    }
 
-  <!-- External CSS -->
-  <link rel="stylesheet" href="style.css">
+    /* Once main image is loaded, remove blur */
+    body.loaded {
+      background-image: url('images/background1.svg'), url('images/background1.png');
+      filter: blur(0);
+    }
+
+    /* === Animated background blobs === */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.6;
+      animation: moveBlobs 20s infinite ease-in-out alternate;
+      z-index: 0;
+    }
+
+    .blob1 { background: #a5d8f3; width: 400px; height: 400px; top: -100px; left: -100px; animation-delay: 0s; }
+    .blob2 { background: #82b9d8; width: 300px; height: 300px; bottom: 0; right: -100px; animation-delay: 5s; }
+    .blob3 { background: #b7e2f1; width: 350px; height: 350px; top: 50%; left: 50%; animation-delay: 10s; }
+
+    @keyframes moveBlobs {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(50px, -50px) scale(1.1); }
+      100% { transform: translate(-30px, 40px) scale(1); }
+    }
+
+    /* === Fade-in animation for card === */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeInUp 1s ease-in-out forwards; }
+  </style>
 </head>
-<body class="min-h-screen flex items-center justify-center">
 
-  <div class="bg-white/20 backdrop-blur-md p-8 rounded-3xl shadow-xl w-full max-w-sm text-center space-y-6">
-    <img src="images/nadia1.jpg" alt="Profile Picture" class="w-24 h-24 mx-auto rounded-full shadow-lg object-cover" />
+<body class="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#eaf2f5]">
+  <!-- Moving Blobs -->
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+
+  <!-- Main Card -->
+  <div class="fade-in relative z-10 bg-white/20 backdrop-blur-lg p-8 rounded-3xl shadow-2xl w-full max-w-sm text-center space-y-6 border border-white/40 transition-transform duration-500 hover:scale-[1.02] hover:shadow-3xl">
+    <img src="images/nadia1.jpg" alt="Profile Picture"
+         class="w-24 h-24 mx-auto rounded-full shadow-lg object-cover ring-4 ring-[#a7cbdc]/50 hover:ring-[#68a3c1]/80 transition"/>
 
     <div>
-      <h1 class="text-2xl font-bold tracking-wide" id="username">Nadia Alexandria</h1>
-      <p class="text-gray-600" id="tagline">Social Media</p>
+      <h1 class="text-2xl font-bold tracking-wide text-gray-900" id="username">Nadia Alexandria</h1>
+      <p class="text-gray-600 text-sm" id="tagline">Social Media</p>
     </div>
 
-    <div class="space-y-4" id="links">
-      <!-- Links will be inserted here by JavaScript -->
-    </div>
-  </div>
-
-  <!-- Contact Modal -->
-  <div id="contactModal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
-    <div class="bg-white p-6 rounded-xl shadow-xl max-w-md w-full">
-      <h2 class="text-xl font-bold mb-4">Contact Me</h2>
-      <form id="contactForm" method="POST" action="https://formspree.io/f/xvgqygla">
-        <div class="mb-3">
-          <input type="text" name="first_name" placeholder="First Name" required
-            class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        </div>
-        <div class="mb-3">
-          <input type="text" name="last_name" placeholder="Last Name" required
-            class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        </div>
-        <div class="mb-3">
-          <input type="email" name="email" placeholder="Your Email" required
-            class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        </div>
-        <div class="mb-4">
-          <textarea name="message" placeholder="Your Message" required rows="4"
-            class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-        </div>
-        <div class="flex justify-end space-x-2">
-          <button type="button" id="closeModal"
-            class="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500">Cancel</button>
-          <button type="submit"
-            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Send</button>
-        </div>
-      </form>
-    </div>
+    <div class="space-y-4" id="links"></div>
   </div>
 
   <script>
@@ -84,15 +86,12 @@
       username: "Nadia Alexandria",
       tagline: "Social Media",
       links: [
-        //{ name: "DeGods", url: "https://degods.com/u/brainer", color: "bg-[#000000] text-[#FFFFFF]", icon: "images/degods.png" },
-        { name: "YouTube", url: "https://www.youtube.com/@nadialexandriaa", color: "bg-[#68a3c1] text-[#FFFFFF]", icon: "images/tube.png" },
-        { name: "Instagram", url: "https://www.instagram.com/nadialexandriaa", color: "bg-[#68a3c1] text-[#FFFFFF]", icon: "images/insta.png" },
-        { name: "Snap", url: "https://www.snapchat.com/@lil.nadiah", color: "bg-[#68a3c1] text-[#FFFFFF]", icon: "images/snap.png" },
-        { name: "TikTok", url: "https://www.tiktok.com/@llil.nadiaa", color: "bg-[#68a3c1] text-[#FFFFFF]", icon: "images/tik.png" },
-        { name: "Discord", url: "https://discord.gg/sENZTTjAU3", color: "bg-[#68a3c1] text-[#FFFFFF]", icon: "images/dog.webp" },
-        { name: "Amazon", url: "https://www.amazon.com/shop/nadialexandriaa", color: "bg-[#68a3c1] text-[#FFFFFF]", icon: "images/amazon (1).png" },
-        //{ name: "Phone Call", url: "https://calendly.com/brainerily/30min", color: "bg-[#FAF9F6] text-[#000000]", icon: "images/phone.png" },
-        //{ name: "Contact Me!", url: "#", color: "bg-[#FAF9F6] text-[#000000]", icon: "images/contact1.png" }
+        { name: "YouTube", url: "https://www.youtube.com/@nadialexandriaa", icon: "images/tube.png" },
+        { name: "Instagram", url: "https://www.instagram.com/nadialexandriaa", icon: "images/insta.png" },
+        { name: "Snap", url: "https://www.snapchat.com/add/lil.nadiah", icon: "images/snap.png" },
+        { name: "TikTok", url: "https://www.tiktok.com/@llil.nadiaa", icon: "images/tik.png" },
+        { name: "Discord", url: "https://discord.gg/sENZTTjAU3", icon: "images/dog.webp" },
+        { name: "Amazon", url: "https://www.amazon.com/shop/nadialexandriaa", icon: "images/amazon (1).png" },
       ]
     };
 
@@ -104,30 +103,13 @@
       const a = document.createElement("a");
       a.href = link.url;
       a.target = "_blank";
-      a.className = `relative flex items-center justify-center ${link.color} px-4 py-3 rounded-xl font-medium hover:opacity-90 transition`;
-
-      a.innerHTML = `
-        <img src="${link.icon}" alt="" class="absolute left-4 w-5 h-5" />
-        <span>${link.name}</span>
-      `;
-
+      a.className =
+        "relative flex items-center justify-center bg-[#68a3c1] text-white px-4 py-3 rounded-xl font-medium hover:bg-[#5b93af] hover:scale-[1.03] transition-all duration-200 shadow-sm hover:shadow-md";
+      a.innerHTML = `<img src="${link.icon}" alt="" class="absolute left-4 w-5 h-5" /> <span>${link.name}</span>`;
       container.appendChild(a);
     });
 
-    // Modal behavior
-    document.addEventListener("click", function (e) {
-      if (e.target.closest("a")?.textContent.includes("Contact Me!")) {
-        e.preventDefault();
-        document.getElementById("contactModal").classList.remove("hidden");
-      }
-    });
-
-    document.getElementById("closeModal").addEventListener("click", function () {
-      document.getElementById("contactModal").classList.add("hidden");
-    });
-  </script>
-  
-  <script>
+    // Remove blur once background image loads
     const img = new Image();
     img.src = "images/background1.svg";
     img.onload = () => document.body.classList.add("loaded");
