@@ -95,6 +95,16 @@
         width: 80px !important;
         height: 80px !important;
       }
+
+      #links img {
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 480px) {
+        #links img {
+          width: 20px;
+          height: 20px;
+      }
     }
   </style>
 </head>
@@ -141,8 +151,12 @@
       a.href = link.url;
       a.target = "_blank";
       a.className =
-        "relative flex items-center justify-center bg-[#68a3c1] text-white px-4 py-3 rounded-xl font-medium hover:bg-[#5b93af] hover:scale-[1.03] transition-all duration-200 shadow-sm hover:shadow-md";
-      a.innerHTML = `<img src="${link.icon}" alt="" class="absolute left-4 w-5 h-5" /> <span>${link.name}</span>`;
+          "flex items-center justify-center gap-3 bg-[#68a3c1] text-white px-4 py-3 rounded-xl font-medium hover:bg-[#5b93af] hover:scale-[1.03] transition-all duration-200 shadow-sm hover:shadow-md";
+
+      a.innerHTML = `
+        <img src="${link.icon}" alt="" class="w-6 h-6 sm:w-5 sm:h-5 object-contain" />
+        <span>${link.name}</span>
+       `;
       container.appendChild(a);
     });
 
