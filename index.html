@@ -2,20 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nadia Alexandria</title>
-  <link rel="icon" href="images/n1.png" type="image/png">
-  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* === Responsive background setup === */
+    /* === General Page Style === */
     html, body {
       margin: 0;
       padding: 0;
       min-height: 100%;
-      width: 100%;
-      background-color: #efeae7; /* fallback while image loads */
-      overflow-x: hidden;
+      background-color: #efeae7; /* fallback color while image loads */
     }
 
     /* Blur-up placeholder before main image loads */
@@ -29,94 +25,99 @@
       transition: filter 0.5s ease-in-out;
     }
 
-    /* Remove blur when loaded */
+    /* Once main image is loaded, remove blur */
     body.loaded {
       background-image: url('images/background1.svg'), url('images/background1.png');
       filter: blur(0);
     }
 
-    /* === Animated background blobs === */
-    .blob {
+    /* === Layout === */
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      backdrop-filter: blur(3px);
+      padding: 1rem;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      color: #333;
+      margin-bottom: 0.25rem;
+    }
+
+    p {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* === Links Styling === */
+    #links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 100%;
+      max-width: 340px;
+    }
+
+    .social-link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #68a3c1;
+      color: #fff;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      font-weight: 500;
+      text-decoration: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      transition: all 0.2s ease-in-out;
+    }
+
+    .social-link:hover {
+      background-color: #5b93af;
+      transform: scale(1.03);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+    }
+
+    /* === Icon Styling (fixes iOS/Safari scaling issues) === */
+    .social-link img {
       position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.6;
-      animation: moveBlobs 20s infinite ease-in-out alternate;
-      z-index: 0;
-      will-change: transform;
+      left: 1rem;
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      min-height: 22px;
+      object-fit: contain;
     }
 
-    .blob1 { background: #a5d8f3; width: 400px; height: 400px; top: -100px; left: -100px; animation-delay: 0s; }
-    .blob2 { background: #82b9d8; width: 300px; height: 300px; bottom: 0; right: -100px; animation-delay: 5s; }
-    .blob3 { background: #b7e2f1; width: 350px; height: 350px; top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: 10s; }
-
-    @keyframes moveBlobs {
-      0%   { transform: translate(0, 0) scale(1); }
-      50%  { transform: translate(50px, -50px) scale(1.1); }
-      100% { transform: translate(-30px, 40px) scale(1); }
-    }
-
-    /* === Fade-in for main card === */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .fade-in {
-      animation: fadeInUp 1s ease-in-out forwards;
-    }
-
-    /* === Responsive adjustments === */
-    @media (max-width: 768px) {
-      .blob {
-        filter: blur(40px);
-        opacity: 0.5;
-      }
-      .blob1, .blob2, .blob3 {
-        width: 250px;
-        height: 250px;
-      }
+    .social-link span {
+      padding-left: 1.8rem;
     }
 
     @media (max-width: 480px) {
-      .blob {
-        filter: blur(30px);
+      .social-link img {
+        width: 20px;
+        height: 20px;
+        left: 0.75rem;
       }
-      .blob1, .blob2, .blob3 {
-        width: 180px;
-        height: 180px;
-      }
-
-      .fade-in {
-        padding: 1.5rem !important;
-      }
-
-      .fade-in img {
-        width: 80px !important;
-        height: 80px !important;
+      h1 {
+        font-size: 1.5rem;
       }
     }
   </style>
 </head>
 
-<body class="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#eaf2f5]">
-  <!-- Moving Blobs -->
-  <div class="blob blob1"></div>
-  <div class="blob blob2"></div>
-  <div class="blob blob3"></div>
-
-  <!-- Main Card -->
-  <div class="fade-in relative z-10 bg-white/20 backdrop-blur-lg p-8 rounded-3xl shadow-2xl w-[90%] sm:w-[80%] md:w-full max-w-sm text-center space-y-6 border border-white/40 transition-transform duration-500 hover:scale-[1.02] hover:shadow-3xl">
-    <img src="images/nadia1.jpg" alt="Profile Picture"
-         class="w-24 h-24 mx-auto rounded-full shadow-lg object-cover ring-4 ring-[#a7cbdc]/50 hover:ring-[#68a3c1]/80 transition"/>
-
-    <div>
-      <h1 class="text-2xl font-bold tracking-wide text-gray-900" id="username">Nadia Alexandria</h1>
-      <p class="text-gray-600 text-sm" id="tagline">Social Media</p>
-    </div>
-
-    <div class="space-y-4" id="links"></div>
-  </div>
+<body>
+  <main>
+    <h1 id="username"></h1>
+    <p id="tagline"></p>
+    <div id="links"></div>
+  </main>
 
   <script>
     const profile = {
@@ -132,24 +133,28 @@
       ]
     };
 
+    // Fill username and tagline
     document.getElementById("username").innerText = profile.username;
     document.getElementById("tagline").innerText = profile.tagline;
 
+    // Generate social links
     const container = document.getElementById("links");
     profile.links.forEach(link => {
       const a = document.createElement("a");
       a.href = link.url;
       a.target = "_blank";
-      a.className =
-        "relative flex items-center justify-center bg-[#68a3c1] text-white px-4 py-3 rounded-xl font-medium hover:bg-[#5b93af] hover:scale-[1.03] transition-all duration-200 shadow-sm hover:shadow-md";
-      a.innerHTML = `<img src="${link.icon}" alt="" class="absolute left-4 w-5 h-5" /> <span>${link.name}</span>`;
+      a.className = "social-link";
+      a.innerHTML = `
+        <img src="${link.icon}" alt="${link.name}" />
+        <span>${link.name}</span>
+      `;
       container.appendChild(a);
     });
 
-    // Remove blur when background image is fully loaded
-    const img = new Image();
-    img.src = "images/background1.svg";
-    img.onload = () => document.body.classList.add("loaded");
+    // Remove blur when background image is loaded
+    const bg = new Image();
+    bg.src = "images/background1.svg";
+    bg.onload = () => document.body.classList.add("loaded");
   </script>
 </body>
 </html>
