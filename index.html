@@ -73,9 +73,15 @@
     
     .mr-dafoe-regular {
       font-family: "Mr Dafoe", cursive;
-      font-weight: 400;
-      font-style: normal;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.15);
     }
+
+    @media (max-width: 480px) {
+      .blur-bg {
+        backdrop-filter: blur(10px) !important;
+      }
+    }
+
 
     html, body {
       overflow-x: hidden;
